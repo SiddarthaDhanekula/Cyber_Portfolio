@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects & Walkthroughs - [Your Name]</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/matrix-bg.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: row;
+            min-height: 100vh;
+        }
+        .index-container {
+            width: 20%;
+            background-color: rgba(0, 0, 0, 0.95);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            padding-top: 2rem;
+            z-index: 2;
+        }
+        .index-section {
+            padding: 0 1.5rem;
+        }
+        .content-container {
+            width: 80%;
+            margin-left: 20%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.98);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .main-content {
+            width: 100%;
+            max-width: 800px;
+            padding: 3rem;
+            position: relative;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            background-color: rgba(10, 10, 10, 0.95);
+            border-radius: 1rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow-y: auto;
+            z-index: 2;
+        }
+        .project-content {
+            width: 100%;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+            flex: 1;
+            margin-bottom: 4rem;
+        }
+        .project-content.active {
+            display: block;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        h2 {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            color: #ffffff;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+        }
+        .dropdown {
+            margin-bottom: 1.5rem;
+        }
+        .dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .dropdown-header:hover {
+            border-bottom-color: rgba(255, 255, 255, 0.2);
+        }
+        .dropdown-header.active {
+            border-bottom-color: rgba(255, 255, 255, 0.3);
+        }
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .dropdown-content {
+            display: none;
+            padding: 0.75rem 0;
+        }
+        .dropdown-content.active {
+            display: block;
+        }
+        .dropdown-list {
+            list-style: none;
+        }
+        .dropdown-list li {
+            margin-bottom: 0.5rem;
+        }
+        .dropdown-list a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: block;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            border-left: 2px solid transparent;
+        }
+        .dropdown-list a:hover {
+            color: #ffffff;
+            border-left-color: rgba(255, 255, 255, 0.3);
+        }
+        .dropdown-list a.active {
+            color: #ffffff;
+            font-weight: 500;
+            border-left-color: rgba(255, 255, 255, 0.5);
+        }
+        .back-home {
+            display: inline-block;
+            color: #ffffff;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            margin-bottom: 2rem;
+        }
+        .back-home:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        .back-home-bottom {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            margin: 0;
+            z-index: 1000;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 1024px) {
+            .index-container {
+                max-width: 100%;
+            }
+        }
+        @media (max-width: 768px) {
+            .index-container {
+                flex-direction: column;
+            }
+            .index-section {
+                width: 100%;
+                height: auto;
+                max-height: 300px;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 1.5rem;
+            }
+            .main-content {
+                width: 100%;
+                min-height: auto;
+                padding: 2rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            h2 {
+                font-size: 1.1rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .index-section, .main-content {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.75rem;
+            }
+            .dropdown-list a {
+                padding: 0.75rem;
+            }
+            .back-home {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        /* Custom scrollbar styling */
+        .main-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .main-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+        .main-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+        .main-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-container" data-opacity="low">
+        <canvas id="matrix"></canvas>
+    </div>
+    <div class="index-container">
+        <div class="index-section">
+            <div class="dropdown">
+                <div class="dropdown-header">
+                    <h2>Projects</h2>
+                    <span class="dropdown-arrow">▼</span>
+                </div>
+                <div class="dropdown-content">
+                    <ul class="dropdown-list">
+                        <li><a href="#" data-project="project1" class="active">Project 1</a></li>
+                        <li><a href="#" data-project="project2">Project 2</a></li>
+                        <li><a href="#" data-project="project3">Project 3</a></li>
+                        <li><a href="#" data-project="project4">Project 4</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="dropdown">
+                <div class="dropdown-header">
+                    <h2>Walkthroughs</h2>
+                    <span class="dropdown-arrow">▼</span>
+                </div>
+                <div class="dropdown-content">
+                    <ul class="dropdown-list">
+                        <li><a href="#" data-project="walkthrough1">Walkthrough 1</a></li>
+                        <li><a href="#" data-project="walkthrough2">Walkthrough 2</a></li>
+                        <li><a href="#" data-project="walkthrough3">Walkthrough 3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-container">
+        <div class="hacker-text" id="contentHackerText"></div>
+        <div class="main-content">
+            <div id="project1" class="project-content active">
+                <h1>Project 1</h1>
+                <p>This is the content for Project 1. Add your project details here.</p>
+            </div>
+            <div id="project2" class="project-content">
+                <h1>Project 2</h1>
+                <p>This is the content for Project 2. Add your project details here.</p>
+            </div>
+            <div id="project3" class="project-content">
+                <h1>Project 3</h1>
+                <p>This is the content for Project 3. Add your project details here.</p>
+            </div>
+            <div id="project4" class="project-content">
+                <h1>Project 4</h1>
+                <p>This is the content for Project 4. Add your project details here.</p>
+            </div>
+            <div id="walkthrough1" class="project-content">
+                <h1>Walkthrough 1</h1>
+                <p>This is the content for Walkthrough 1. Add your walkthrough details here.</p>
+            </div>
+            <div id="walkthrough2" class="project-content">
+                <h1>Walkthrough 2</h1>
+                <p>This is the content for Walkthrough 2. Add your walkthrough details here.</p>
+            </div>
+            <div id="walkthrough3" class="project-content">
+                <h1>Walkthrough 3</h1>
+                <p>This is the content for Walkthrough 3. Add your walkthrough details here.</p>
+            </div>
+        </div>
+        <a href="index.html" class="back-home back-home-bottom">Back to Home</a>
+    </div>
+
+    <script src="matrix-bg.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hacker text generation
+            function generateHackerText() {
+                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()_+-=[]{}|;:,.<>?';
+                const lines = 50;
+                const charsPerLine = 100;
+                let text = '';
+                
+                for (let i = 0; i < lines; i++) {
+                    for (let j = 0; j < charsPerLine; j++) {
+                        text += characters.charAt(Math.floor(Math.random() * characters.length));
+                    }
+                    text += '\n';
+                }
+                
+                return text;
+            }
+
+            // Update hacker text for both containers
+            function updateHackerText() {
+                const indexHackerText = document.getElementById('indexHackerText');
+                const contentHackerText = document.getElementById('contentHackerText');
+                
+                if (indexHackerText) {
+                    indexHackerText.textContent = generateHackerText();
+                }
+                
+                if (contentHackerText) {
+                    contentHackerText.textContent = generateHackerText();
+                }
+            }
+
+            // Initial update
+            updateHackerText();
+
+            // Update every 5 seconds
+            setInterval(updateHackerText, 5000);
+
+            // Document mapping configuration
+            const documentMap = {
+                'project1': 'projects/project1.html',
+                'project2': 'projects/project2.html',
+                'project3': 'projects/project3.html',
+                'project4': 'projects/project4.html',
+                'walkthrough1': 'walkthroughs/walkthrough1.html',
+                'walkthrough2': 'walkthroughs/walkthrough2.html',
+                'walkthrough3': 'walkthroughs/walkthrough3.html'
+            };
+
+            // Dropdown functionality
+            const dropdownHeaders = document.querySelectorAll('.dropdown-header');
+            dropdownHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const arrow = this.querySelector('.dropdown-arrow');
+                    
+                    // Toggle active class
+                    this.classList.toggle('active');
+                    content.classList.toggle('active');
+                    
+                    // Rotate arrow
+                    arrow.style.transform = content.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0)';
+                });
+            });
+
+            // Project content switching
+            const projectLinks = document.querySelectorAll('.dropdown-list a');
+            const projectContents = document.querySelectorAll('.project-content');
+            const mainContent = document.querySelector('.main-content');
+
+            // Function to load document content
+            async function loadDocumentContent(projectId) {
+                try {
+                    const filePath = documentMap[projectId];
+                    console.log('Attempting to load:', filePath);
+                    
+                    const response = await fetch(filePath);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const content = await response.text();
+                    console.log('Content loaded successfully');
+                    
+                    // Create a temporary container to parse the HTML
+                    const temp = document.createElement('div');
+                    temp.innerHTML = content;
+                    
+                    // Extract the content from the project-header and project-section elements
+                    const projectHeader = temp.querySelector('.project-header');
+                    const projectSections = temp.querySelectorAll('.project-section');
+                    
+                    console.log('Found elements:', {
+                        header: !!projectHeader,
+                        sections: projectSections.length
+                    });
+                    
+                    // Update the project content
+                    const projectContent = document.getElementById(projectId);
+                    if (!projectContent) {
+                        throw new Error(`Project content container not found for ID: ${projectId}`);
+                    }
+                    
+                    projectContent.innerHTML = '';
+                    
+                    // Add the header if it exists
+                    if (projectHeader) {
+                        projectContent.appendChild(projectHeader);
+                    }
+                    
+                    // Add all sections
+                    projectSections.forEach(section => {
+                        projectContent.appendChild(section);
+                    });
+                    
+                    // Show the content
+                    projectContents.forEach(c => c.classList.remove('active'));
+                    projectContent.classList.add('active');
+                    
+                } catch (error) {
+                    console.error('Error loading document:', error);
+                    // Show error message in the content area
+                    const projectContent = document.getElementById(projectId);
+                    if (projectContent) {
+                        projectContent.innerHTML = `
+                            <h1>Error Loading Content</h1>
+                            <p>Sorry, there was an error loading this content. Please try again later.</p>
+                            <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">Error details: ${error.message}</p>
+                            <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">Please make sure you're running this through a web server.</p>
+                        `;
+                        projectContents.forEach(c => c.classList.remove('active'));
+                        projectContent.classList.add('active');
+                    }
+                }
+            }
+
+            projectLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    projectLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Load the corresponding document
+                    const projectId = this.getAttribute('data-project');
+                    loadDocumentContent(projectId);
+                });
+            });
+
+            // Load initial content
+            const initialProject = document.querySelector('.dropdown-list a.active');
+            if (initialProject) {
+                const projectId = initialProject.getAttribute('data-project');
+                loadDocumentContent(projectId);
+            }
+        });
+    </script>
+</body>
+</html>

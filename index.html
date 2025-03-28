@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="matrix-bg.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow: auto;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+        .matrix-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            z-index: 2;
+        }
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #374151;
+            overflow: hidden;
+            margin: 0 auto 1.5rem;
+        }
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+        header p {
+            font-size: 1.125rem;
+            color: #d1d5db;
+        }
+        nav {
+            width: 100%;
+            margin-top: 2rem;
+        }
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            flex-wrap: nowrap;
+        }
+        .nav-menu a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 0.5rem 1rem;
+            border: 2px solid white;
+            transition: all 0.3s ease;
+        }
+        .nav-menu a:first-child {
+            border-right: none;
+            border-top-left-radius: 0.25rem;
+            border-bottom-left-radius: 0.25rem;
+        }
+        .nav-menu a:last-child {
+            border-top-right-radius: 0.25rem;
+            border-bottom-right-radius: 0.25rem;
+        }
+        .nav-menu a:nth-child(3) {
+            border-left: none;
+        }
+        .nav-menu a:nth-child(4) {
+            border-left: none;
+        }
+        .nav-menu a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+            header p {
+                font-size: 1rem;
+            }
+            .nav-menu {
+                flex-direction: column;
+                align-items: center;
+            }
+            .nav-menu a {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 0.5rem;
+                border: 2px solid white;
+                border-radius: 0.25rem;
+            }
+            .nav-menu a:first-child,
+            .nav-menu a:last-child,
+            .nav-menu a:nth-child(3),
+            .nav-menu a:nth-child(4) {
+                border: 2px solid white;
+                border-radius: 0.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-container" data-opacity="low">
+        <canvas id="matrix"></canvas>
+    </div>
+    <div class="container">
+        <header>
+            <div class="profile-image">
+                <img src="https://placehold.co/150x150/EEE/31343C" alt="Your Name">
+            </div>
+            <h1>[Your Name]</h1>
+            <p>Software Developer</p>
+        </header>
+        <nav>
+            <div class="nav-menu">
+                <a href="about.html">About</a>
+                <a href="projects.html">Projects & Walkthroughs</a>
+                <a href="certificates.html">Certificates</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </nav>
+    </div>
+    <script src="matrix-bg.js"></script>
+</body>
+</html>
