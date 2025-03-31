@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificates - [Your Name]</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="matrix-bg.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow: auto;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+        .matrix-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            z-index: 2;
+            overflow-y: auto;
+        }
+
+        .content-container {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            width: 100%;
+            max-width: 1200px;
+            backdrop-filter: blur(10px);
+            overflow-y: auto;
+            max-height: 80vh;  /* Set maximum height for scrolling */
+        }
+
+        .content-container h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #ffffff;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .certificate-card {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .certificate-image {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .certificate-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            user-select: none;
+            pointer-events: none;
+            -webkit-user-drag: none;
+            -webkit-touch-callout: none;
+        }
+
+        .certificate-name {
+            color: #ffffff;
+            font-size: 1.1rem;
+            text-align: center;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .back-home {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 0.8rem 1.5rem;
+            background-color: rgba(40, 40, 40, 0.9);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.2s ease;
+            z-index: 1000;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .back-home:hover {
+            background-color: rgba(50, 50, 50, 0.95);
+            transform: translateY(-2px);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* For Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05);
+        }
+
+        @media screen and (max-width: 768px) {
+            .content-container {
+                padding: 1.5rem;
+                margin: 1rem 0;
+            }
+
+            .content-container h1 {
+                font-size: 2rem;
+            }
+
+            .certificates-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .certificate-image {
+                height: 180px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .content-container {
+                padding: 1rem;
+            }
+
+            .certificates-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .certificate-image {
+                height: 160px;
+            }
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1001;
+            overflow: auto;
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 1000px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .modal img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #f1f1f1;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-container" data-opacity="low">
+        <canvas id="matrix"></canvas>
+    </div>
+    <div class="container">
+        <div class="content-container">
+            <h1>Certificates</h1>
+            <div class="certificates-grid">
+                <!-- Example Certificate Card -->
+                <div class="certificate-card" onclick="openModal(this)">
+                    <div class="certificate-image">
+                        <img src="path/to/certificate1.jpg" alt="Certificate 1" oncontextmenu="return false;">
+                    </div>
+                    <div class="certificate-name">CompTIA Security+</div>
+                </div>
+                
+                <!-- Add more certificate cards as needed -->
+                <div class="certificate-card" onclick="openModal(this)">
+                    <div class="certificate-image">
+                        <img src="path/to/certificate2.jpg" alt="Certificate 2" oncontextmenu="return false;">
+                    </div>
+                    <div class="certificate-name">CEH v12</div>
+                </div>
+
+                <!-- Example of how to add more certificates -->
+                <div class="certificate-card" onclick="openModal(this)">
+                    <div class="certificate-image">
+                        <img src="path/to/certificate3.jpg" alt="Certificate 3" oncontextmenu="return false;">
+                    </div>
+                    <div class="certificate-name">OSCP</div>
+                </div>
+            </div>
+        </div>
+        <a href="index.html" class="back-home">Back to Home</a>
+    </div>
+
+    <!-- Modal -->
+    <div id="certificateModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Certificate">
+        </div>
+    </div>
+
+    <script src="matrix-bg.js"></script>
+    <script>
+        // Prevent right-click on images
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        });
+
+        // Prevent drag and drop of images
+        document.addEventListener('dragstart', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('certificateModal');
+        const modalImg = document.getElementById('modalImage');
+
+        function openModal(card) {
+            const img = card.querySelector('img');
+            modal.style.display = "block";
+            modalImg.src = img.src;
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

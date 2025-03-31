@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="matrix-bg.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .matrix-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+        }
+
+        .content-container {
+            display: flex;
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+        }
+
+        /* Left panel improvements */
+        .left-panel {
+            width: 300px;
+            padding: 2rem;
+            background-color: rgba(20, 20, 20, 0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            height: 100vh;
+            overflow-y: auto;
+            position: fixed;
+            left: 0;
+            top: 0;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .left-panel h1 {
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 2rem;
+        }
+
+        /* Improved dropdown styles */
+        .dropdown select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background-color: rgba(40, 40, 40, 0.9);
+            color: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown select:hover {
+            background-color: rgba(50, 50, 50, 0.9);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Right panel improvements */
+        .right-panel {
+            flex: 1;
+            padding: 2rem;
+            margin-left: 300px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        #content {
+            background-color: rgba(10, 10, 10, 0.9);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            width: 95%;
+            max-width: 1100px;
+            margin: 2rem auto;
+            height: calc(100vh - 8rem);
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Style for loaded content */
+        #content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        #content h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        #content h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        #content p {
+            margin-bottom: 1.5rem;
+            color: #d1d5db;
+            font-size: 1.1rem;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+        }
+
+        #content ul, #content ol {
+            list-style-type: none;
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #d1d5db;
+        }
+
+        #content ul li, #content ol li {
+            position: relative;
+            margin-bottom: 0.75rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+        }
+
+        #content ul li::before {
+            content: "▹";
+            position: absolute;
+            left: -1.5rem;
+            color: #4f46e5;
+        }
+
+        #content ol {
+            counter-reset: item;
+        }
+
+        #content ol li {
+            counter-increment: item;
+        }
+
+        #content ol li::before {
+            content: counter(item) ".";
+            position: absolute;
+            left: -1.5rem;
+            color: #4f46e5;
+        }
+
+        #content code, #content pre {
+            font-family: 'Source Code Pro', monospace;
+            background-color: rgba(40, 40, 40, 0.9);
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        #content pre {
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+        }
+
+        #content pre code {
+            padding: 0;
+            background-color: transparent;
+        }
+
+        #content img {
+            width: 600px;
+            height: 400px;
+            object-fit: contain;
+            display: block;
+            margin: 2rem auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Image container for better organization */
+        .image-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+
+        /* Optional image caption styling */
+        .image-container img + em {
+            display: block;
+            margin-top: 0.5rem;
+            color: #d1d5db;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        /* Consistent scrollbar styling */
+        .left-panel::-webkit-scrollbar,
+        #content::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .left-panel::-webkit-scrollbar-track,
+        #content::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .left-panel::-webkit-scrollbar-thumb,
+        #content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        /* Back button improvements */
+        .back-home {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 0.8rem 1.5rem;
+            background-color: rgba(40, 40, 40, 0.9);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.2s ease;
+            z-index: 1000;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .back-home:hover {
+            background-color: rgba(50, 50, 50, 0.95);
+            transform: translateY(-2px);
+        }
+
+        /* Improved responsive design */
+        @media screen and (max-width: 768px) {
+            .content-container {
+                flex-direction: column;
+            }
+
+            .left-panel {
+                width: 100%;
+                height: auto;
+                max-height: 40vh;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 1.5rem;
+            }
+
+            .right-panel {
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+
+            #content {
+                height: auto;
+                padding: 1.5rem;
+                margin: 0;
+            }
+
+            #content h1 {
+                font-size: 2rem;
+            }
+            #content h2 {
+                font-size: 1.5rem;
+            }
+            #content h3 {
+                font-size: 1.3rem;
+            }
+            #content p, #content ul li, #content ol li {
+                font-size: 1rem;
+            }
+
+            #content img {
+                width: 100%;
+                max-width: 500px;
+                height: 300px;
+            }
+
+            .back-home {
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .left-panel {
+                padding: 1rem;
+            }
+
+            .left-panel h1 {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .dropdown select {
+                padding: 0.7rem;
+            }
+
+            #content {
+                padding: 1rem;
+            }
+
+            #content img {
+                height: 250px;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+</head>
+<body>
+    <div class="matrix-container" data-opacity="low">
+        <canvas id="matrix"></canvas>
+    </div>
+
+    <div class="content-container">
+        <div class="left-panel">
+            <h1>Index</h1>
+            <div class="dropdown">
+                <select id="projects" onchange="loadDocument(this.value)">
+                    <option value="" disabled selected>Projects</option>
+                    <option value="documents/project1.docx">Project 1</option>
+                    <option value="documents/project2.docx">Project 2</option>
+                    <option value="documents/project3.docx">Project 3</option>
+                </select>
+            </div>
+            <div class="dropdown">
+                <select id="walkthroughs" onchange="loadDocument(this.value)">
+                    <option value="" disabled selected>Walkthroughs</option>
+                    <option value="documents/walkthrough1.docx">Walkthrough 1</option>
+                    <option value="documents/walkthrough2.docx">Walkthrough 2</option>
+                    <option value="documents/walkthrough3.docx">Walkthrough 3</option>
+                </select>
+            </div>
+        </div>
+        <div class="right-panel">
+            <div id="content">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-home">Back to Home</a>
+    <script src="matrix-bg.js"></script>
+    <script>
+        function loadDocument(url) {
+            fetch(url)
+                .then(response => response.arrayBuffer())
+                .then(data => mammoth.convertToHtml({arrayBuffer: data}))
+                .then(result => {
+                    document.getElementById('content').innerHTML = result.value;
+                })
+                .catch(error => console.error('Error loading document:', error));
+        }
+    </script>
+</body>
+</html>

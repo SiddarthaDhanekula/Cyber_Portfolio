@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - [Your Name]</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="matrix-bg.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow: auto;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+        .matrix-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            position: relative;
+            z-index: 2;
+            overflow-y: auto;
+        }
+        .back-home {
+            display: inline-block;
+            color: #ffffff;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            margin-bottom: 2rem;
+        }
+        .back-home:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        .back-home-bottom {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            margin: 0;
+            z-index: 1000;
+        }
+        .content-container {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            width: 100%;
+            max-width: 1000px;
+            backdrop-filter: blur(10px);
+            overflow-y: auto;
+        }
+        .content-container h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+            text-align: center;
+        }
+        .content-container h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: #ffffff;
+        }
+        .content-container p {
+            margin-bottom: 1.5rem;
+            color: #d1d5db;
+            font-size: 1.1rem;
+        }
+        .content-container ul {
+            list-style-type: none;
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .content-container ul li {
+            position: relative;
+            margin-bottom: 0.75rem;
+            color: #d1d5db;
+        }
+        .content-container ul li::before {
+            content: "▹";
+            position: absolute;
+            left: -1.5rem;
+            color: #4f46e5;
+        }
+        .section {
+            margin-bottom: 2.5rem;
+        }
+        @media screen and (min-width: 1400px) {
+            .content-container {
+                max-width: 1200px;
+            }
+        }
+        @media screen and (max-width: 768px) {
+            .content-container {
+                padding: 1.5rem;
+                margin: 1rem 0;
+            }
+            .content-container h1 {
+                font-size: 2rem;
+            }
+            .content-container h2 {
+                font-size: 1.5rem;
+            }
+            .content-container p {
+                font-size: 1rem;
+            }
+        }
+        /* Custom Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        /* For Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-container" data-opacity="low">
+        <canvas id="matrix"></canvas>
+    </div>
+    <div class="container">
+        <div class="content-container">
+            <h1>About Me</h1>
+            
+            <div class="section">
+                <h2>Introduction</h2>
+                <p>Welcome! I'm [Your Name], a passionate Software Developer with a focus on cybersecurity. I specialize in [your specific areas of expertise].</p>
+            </div>
+
+            <div class="section">
+                <h2>Skills & Expertise</h2>
+                <ul>
+                    <li>Programming Languages: [List your languages]</li>
+                    <li>Security Tools: [List relevant tools]</li>
+                    <li>Frameworks & Technologies: [List frameworks]</li>
+                    <li>Certifications: [List your certifications]</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Professional Experience</h2>
+                <p>Brief overview of your professional journey and key achievements.</p>
+            </div>
+
+            <div class="section">
+                <h2>Current Focus</h2>
+                <p>What you're currently working on or learning.</p>
+            </div>
+        </div>
+        <a href="index.html" class="back-home back-home-bottom">Back to Home</a>
+    </div>
+    <script src="matrix-bg.js"></script>
+</body>
+</html>
