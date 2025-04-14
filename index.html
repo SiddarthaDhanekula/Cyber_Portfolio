@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), camera=(), microphone=()">
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https://placehold.co; connect-src 'self' https://api.github.com; frame-src https://tryhackme.com;">
     <title>My Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +43,7 @@
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 3rem 1rem;
+            padding: 0 1rem;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -44,173 +52,512 @@
             position: relative;
             z-index: 2;
         }
-        .profile-image {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            border: 4px solid #374151;
-            overflow: hidden;
-            margin: 0 auto 2rem;
-            position: relative;
-        }
-        .profile-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center 20%;  /* Adjust to focus on face */
-        }
-        header {
+        .profile-container {
             text-align: center;
             margin-bottom: 3rem;
             width: 100%;
+            max-width: 800px;
         }
-        header h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: #ffffff;
+        .profile-photo {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            border: 3px solid #00ff00;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;  /* Adjusted from 'center' to 'center 30%' to show more of the head */
+        }
+        .profile-photo:hover {
+            transform: scale(1.05);
+            border-color: #00ff00;
+            box-shadow: 0 0 40px rgba(0, 255, 0, 0.5);
+        }
+        .name {
+            font-size: 3rem;
+            color: #00ff00;
             margin-bottom: 1rem;
+            font-family: 'Source Code Pro', monospace;
+            text-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+            letter-spacing: 2px;
         }
-        header p {
-            font-size: 1.5rem;
-            color: #d1d5db;
+        .job-title {
+            font-size: 1.4rem;
+            color: rgba(0, 255, 0, 0.8);
+            margin-bottom: 3rem;
+            font-family: 'Source Code Pro', monospace;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
         }
-        .social-icons {
-            margin: 2rem 0;
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+            padding: 0 1rem;
+            position: relative;
+        }
+        .social-icon {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 20, 0, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff00;
+            text-decoration: none;
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            transition: all 0.3s ease;
+            font-size: 1.8rem;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 1;
+        }
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 40, 0, 0.9);
+            border-color: #00ff00;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
+        }
+        .social-icon i {
+            transition: all 0.3s ease;
+            text-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+        }
+        .social-icon:hover i {
+            transform: scale(1.2);
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
+        }
+        .badge {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: rgba(0, 20, 0, 0.95);
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.9rem;
+            color: #00ff00;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 1000;
+            min-width: 200px;
+        }
+        .badge::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid rgba(0, 20, 0, 0.95);
+        }
+        .social-icon:hover .badge {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        .badge-stat {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.1);
+        }
+        .badge-stat:last-child {
+            border-bottom: none;
+        }
+        .badge-label {
+            color: rgba(0, 255, 0, 0.7);
+        }
+        .badge-value {
+            color: #00ff00;
+            font-weight: 600;
+        }
+        .nav-options {
             display: flex;
             justify-content: center;
             gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 1200px;
         }
-        .social-icons a {
-            position: relative;
+        .nav-option {
+            padding: 1rem 2rem;
+            background: rgba(0, 20, 0, 0.8);
+            color: #00ff00;
             text-decoration: none;
-            transition: transform 0.3s ease;
+            border-radius: 8px;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 1.2rem;
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            min-width: 250px;
+            justify-content: center;
+            flex: 0 1 auto;
         }
-        .social-icons a:hover {
+        .nav-option:hover {
+            background: rgba(0, 40, 0, 0.9);
             transform: translateY(-3px);
+            border-color: #00ff00;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
         }
-        .social-icons a::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 14px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            white-space: nowrap;
-            pointer-events: none;
+        .nav-option::before {
+            content: ">";
+            font-family: monospace;
+            color: #00ff00;
+            opacity: 0.8;
+            transition: transform 0.3s ease;
+            font-size: 1.4rem;
         }
-        .social-icons a:hover::after {
+        .nav-option:hover::before {
+            transform: translateX(5px);
             opacity: 1;
         }
-        nav {
-            width: 100%;
-            margin-top: 1rem;
+        @media screen and (max-width: 992px) {
+            .nav-option {
+                min-width: 200px;
+                padding: 0.8rem 1.5rem;
+                font-size: 1.1rem;
+            }
         }
-        .nav-menu {
-            display: flex;
-            justify-content: center;
-            flex-wrap: nowrap;
+        @media screen and (max-width: 768px) {
+            .profile-photo {
+                width: 200px;
+                height: 200px;
+            }
         }
-        .nav-menu a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 700;
-            padding: 0.8rem 1.8rem;
-            border: 2px solid white;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-        .nav-menu a:first-child {
-            border-right: none;
-            border-top-left-radius: 0.25rem;
-            border-bottom-left-radius: 0.25rem;
-        }
-        .nav-menu a:last-child {
-            border-top-right-radius: 0.25rem;
-            border-bottom-right-radius: 0.25rem;
-        }
-        .nav-menu a:nth-child(3) {
-            border-left: none;
-        }
-        .nav-menu a:nth-child(4) {
-            border-left: none;
-        }
-        .nav-menu a:hover {
-            background-color: rgba(255,255,255,0.1);
-        }
-        @media screen and (max-width: 1200px) {
+        @media screen and (max-width: 576px) {
             .container {
-                max-width: 100%;
                 padding: 2rem 1rem;
             }
-            header h1 {
-                font-size: 3rem;
+            
+            .name {
+                font-size: 2rem;
             }
-            .profile-image {
+            
+            .job-title {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+            
+            .social-links {
+                gap: 1.5rem;
+            }
+            
+            .social-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .nav-options {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+            
+            .nav-option {
+                width: auto;
+                min-width: 160px;
+                padding: 0.7rem 1.2rem;
+                font-size: 1rem;
+            }
+            
+            .profile-photo {
                 width: 180px;
                 height: 180px;
             }
         }
-        @media screen and (max-width: 768px) {
-            .container {
-                padding: 1.5rem;
-            }
-            header h1 {
-                font-size: 2.5rem;
-            }
-            header p {
-                font-size: 1.25rem;
-            }
-            .profile-image {
-                width: 150px;
-                height: 150px;
-            }
-            .social-icons {
-                gap: 1.5rem;
-            }
-            .nav-menu {
-                flex-direction: column;
-                align-items: center;
-            }
-            .nav-menu a {
-                width: 100%;
-                text-align: center;
-                margin-bottom: 0.5rem;
-                border: 2px solid white;
-                border-radius: 0.25rem;
-                padding: 0.7rem 1.5rem;
-            }
-            .nav-menu a:first-child,
-            .nav-menu a:last-child,
-            .nav-menu a:nth-child(3),
-            .nav-menu a:nth-child(4) {
-                border: 2px solid white;
-                border-radius: 0.25rem;
-            }
+        /* Badge styles */
+        .social-badge {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3000;
+            background: rgba(0, 20, 0, 0.95);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
         }
-        @media screen and (max-width: 480px) {
-            header h1 {
-                font-size: 2rem;
-            }
-            header p {
-                font-size: 1.1rem;
-            }
-            .profile-image {
-                width: 120px;
-                height: 120px;
-            }
-            .social-icons {
-                gap: 1rem;
-            }
-            .nav-menu a {
-                padding: 0.6rem 1.2rem;
-                font-size: 1rem;
-            }
+        .social-badge iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        /* LinkedIn specific styles */
+        .social-badge[data-type="linkedin"] {
+            width: auto;
+            height: auto;
+        }
+        .social-badge[data-type="linkedin"] a {
+            text-decoration: none;
+        }
+        .linkedin-card {
+            background-color: rgba(0, 20, 0, 0.95);
+            padding: 16px;
+            border-radius: 8px;
+            width: 400px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        .linkedin-card-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        .linkedin-profile-image {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center 30%;
+            border: 2px solid rgba(0, 255, 0, 0.3);
+        }
+        .linkedin-info {
+            flex: 1;
+            color: #00ff00;
+        }
+        .linkedin-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+        .linkedin-headline {
+            font-size: 14px;
+            color: rgba(0, 255, 0, 0.8);
+            margin-bottom: 4px;
+        }
+        .linkedin-location {
+            font-size: 14px;
+            color: rgba(0, 255, 0, 0.7);
+            margin-bottom: 4px;
+        }
+        .linkedin-connections {
+            font-size: 14px;
+            color: rgba(0, 255, 0, 0.7);
+            margin-bottom: 12px;
+        }
+        .linkedin-logo {
+            margin-top: auto;
+        }
+        .linkedin-text {
+            color: #00ff00;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        .linkedin-text:hover {
+            opacity: 1;
+        }
+        .linkedin-text i {
+            font-size: 16px;
+        }
+        /* Show badges on hover */
+        .social-icon:hover + .social-badge,
+        .social-badge:hover {
+            display: block;
+        }
+        /* LetsDefend specific styles */
+        .social-badge[data-type="letsdefend"] {
+            height: auto;
+            width: auto;
+        }
+        .letsdefend-card {
+            background-color: #1a1b26;
+            padding: 16px;
+            border-radius: 8px;
+            width: 400px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+        }
+        .letsdefend-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            text-align: center;
+            color: #fff;
+        }
+        .letsdefend-stat {
+            padding: 12px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .letsdefend-stat.updating {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .letsdefend-stat-value {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .letsdefend-stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .letsdefend-stat:nth-child(1) .letsdefend-stat-value {
+            color: #4287f5;
+        }
+        .letsdefend-stat:nth-child(2) .letsdefend-stat-value {
+            color: #f54242;
+        }
+        .letsdefend-stat:nth-child(3) .letsdefend-stat-value {
+            color: #42f5ad;
+        }
+        .stats-last-updated {
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 12px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .view-current-stats {
+            display: inline-block;
+            color: #64ffda;
+            text-decoration: none;
+            margin-left: 8px;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        .view-current-stats:hover {
+            color: #9effeb;
+            text-decoration: underline;
+        }
+        /* BTLO specific styles */
+        .social-badge[data-type="btlo"] {
+            height: auto;
+            width: auto;
+        }
+        .btlo-card {
+            background-color: #1a1b26;
+            padding: 16px;
+            border-radius: 8px;
+            width: 400px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+        }
+        .btlo-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+                text-align: center;
+            color: #fff;
+        }
+        .btlo-stat {
+            padding: 12px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .btlo-stat-value {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #64ffda;
+        }
+        .btlo-stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        /* Add pointer triangle for the badges */
+        .social-badge::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid rgba(0, 20, 0, 0.95);
+        }
+        /* Specific adjustments for different badge types */
+        .social-badge[data-type="linkedin"] .badge {
+            position: static;
+            transform: none;
+            opacity: 1;
+            visibility: visible;
+        }
+        /* Remove all THM specific styling */
+        .social-badge[data-type="thm"] {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 15px;
+            background: none;
+            border: none;
+            box-shadow: none;
+            padding: 0;
+            width: 324px;
+            height: 120px;  /* Increased height to show full badge */
+            overflow: visible;
+        }
+        .social-badge[data-type="thm"] iframe {
+            width: 324px;
+            height: 120px;  /* Increased height to show full badge */
+            border: none;
+            margin: 0;
+            padding: 0;
+            background: none;
+            overflow: hidden;
+        }
+        /* Update the HTML structure */
+        <div class="social-links">
+            <!-- ... other social icons ... -->
+            <a href="https://tryhackme.com/p/yourusername" target="_blank" aria-label="TryHackMe" class="social-icon" data-badge="thm" rel="noopener">
+                <i class="fas fa-flag"></i>
+            </a>
+            <div class="social-badge" data-type="thm">
+                <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=835304" frameborder="0" scrolling="no"></iframe>
+            </div>
+            <!-- ... other social icons ... -->
+        </div>
+        /* Add hover transition */
+        .social-badge {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateX(-50%) translateY(10px);
         }
     </style>
 </head>
@@ -220,41 +567,268 @@
     </div>
     <div class="container">
         <header>
-            <div class="profile-image">
+            <div class="profile-container">
+                <div class="profile-photo">
                 <img src="./images/profile.jpg" alt="Your Name" 
                      onerror="this.onerror=null; console.log('Image failed to load'); this.src='https://placehold.co/200x200';">
+                </div>
+                <h1 class="name">Siddartha Dhanekula</h1>
+                <p class="job-title">Security Analyst | Former Analyst at Tata Consultancy Services(TCS)</p>
             </div>
-            <h1>[Siddartha Dhanekula]</h1>
-            <p>Security Analyst</p>
-            <div class="social-icons">
-                <a href="mailto:your-email@example.com" target="_blank" aria-label="Email" data-tooltip="Email">
-                    <i class="fas fa-envelope" style="color: #ffffff; font-size: 32px;"></i>
+            <div class="social-links">
+                <a href="#" aria-label="Email" class="social-icon" onclick="handleMailClick(event)">
+                    <i class="fas fa-envelope"></i>
+                    <div class="badge">
+                        <div class="badge-stat">
+                            <div class="badge-label">Email</div>
+                            <div class="badge-value">siddarthad17@gmail.com</div>
+                        </div>
+                    </div>
                 </a>
-                <a href="https://www.linkedin.com/in/your-profile" target="_blank" aria-label="LinkedIn" data-tooltip="LinkedIn">
-                    <i class="fab fa-linkedin" style="color: #ffffff; font-size: 32px;"></i>
+                <a href="https://www.linkedin.com/in/siddarthad" target="_blank" aria-label="LinkedIn" class="social-icon" data-badge="linkedin" rel="noopener">
+                    <i class="fab fa-linkedin"></i>
                 </a>
-                <a href="https://tryhackme.com/p/yourusername" target="_blank" aria-label="TryHackMe" data-tooltip="TryHackMe">
-                    <i class="fas fa-flag" style="color: #ffffff; font-size: 32px;"></i>
+                <div class="social-badge" data-type="linkedin">
+                    <div class="linkedin-card">
+                        <div class="linkedin-card-content">
+                            <img src="./images/profile.jpg" alt="Siddartha Dhanekula" class="linkedin-profile-image">
+                            <div class="linkedin-info">
+                                <div class="linkedin-name">Siddartha Dhanekula</div>
+                                <div class="linkedin-headline">SOC Analyst | Former Analyst at Tata Consultancy Services</div>
+                                <div class="linkedin-location">Hyderabad, Telangana, India</div>
+                                <div class="linkedin-connections">126 connections</div>
+                                <div class="linkedin-logo">
+                                    <div class="linkedin-text">
+                                        <i class="fab fa-linkedin"></i>
+                                        LinkedIn
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://tryhackme.com/p/yourusername" target="_blank" aria-label="TryHackMe" class="social-icon" data-badge="thm" rel="noopener">
+                    <i class="fas fa-flag"></i>
                 </a>
-                <a href="https://app.letsdefend.io/profile/yourusername" target="_blank" aria-label="LetsDefend" data-tooltip="LetsDefend">
-                    <i class="fas fa-shield-alt" style="color: #ffffff; font-size: 32px;"></i>
+                <div class="social-badge" data-type="thm">
+                    <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=835304" frameborder="0" scrolling="no"></iframe>
+                </div>
+                <a href="https://app.letsdefend.io/user/siddartha" target="_blank" aria-label="LetsDefend" class="social-icon" data-badge="letsdefend" rel="noopener">
+                    <i class="fas fa-shield-alt"></i>
                 </a>
-                <a href="https://blueteamlabs.online/public/user/yourusername" target="_blank" aria-label="Blue Team Labs Online" data-tooltip="Blue Team Labs">
-                    <i class="fas fa-user-shield" style="color: #ffffff; font-size: 32px;"></i>
+                <div class="social-badge" data-type="letsdefend">
+                    <div class="letsdefend-card">
+                        <div class="letsdefend-stats" id="letsdefend-stats">
+                            <div class="letsdefend-stat">
+                                <div class="letsdefend-stat-value" id="letsdefend-score">--</div>
+                                <div class="letsdefend-stat-label">Score</div>
+                            </div>
+                            <div class="letsdefend-stat">
+                                <div class="letsdefend-stat-value" id="letsdefend-sla">--</div>
+                                <div class="letsdefend-stat-label">SLA</div>
+                            </div>
+                            <div class="letsdefend-stat">
+                                <div class="letsdefend-stat-value" id="letsdefend-success">--%</div>
+                                <div class="letsdefend-stat-label">Success Rate</div>
+                            </div>
+                        </div>
+                        <div class="stats-last-updated">
+                            Updated: <span id="letsdefend-last-updated">--</span>
+                            <a href="https://app.letsdefend.io/user/siddartha" target="_blank" rel="noopener" class="view-current-stats">Click to see current stats</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://blueteamlabs.online/public/user/2ee55f064088d49089a003" target="_blank" aria-label="Blue Team Labs Online" class="social-icon" data-badge="btlo" rel="noopener">
+                    <i class="fas fa-user-shield"></i>
                 </a>
-                <a href="https://app.hackthebox.com/profile/yourusername" target="_blank" aria-label="HackTheBox" data-tooltip="HackTheBox">
-                    <i class="fas fa-cube" style="color: #ffffff; font-size: 32px;"></i>
-                </a>
+                <div class="social-badge" data-type="btlo">
+                    <div class="btlo-card">
+                        <div class="btlo-stats" id="btlo-stats">
+                            <div class="btlo-stat">
+                                <div class="btlo-stat-value" id="btlo-rank">--</div>
+                                <div class="btlo-stat-label">Rank</div>
+                            </div>
+                            <div class="btlo-stat">
+                                <div class="btlo-stat-value" id="btlo-points">--</div>
+                                <div class="btlo-stat-label">Points</div>
+                            </div>
+                            <div class="btlo-stat">
+                                <div class="btlo-stat-value" id="btlo-challenges">--</div>
+                                <div class="btlo-stat-label">Challenges</div>
+                            </div>
+                        </div>
+                        <div class="stats-last-updated">
+                            Updated: <span id="btlo-last-updated">--</span>
+                            <a href="https://blueteamlabs.online/public/user/2ee55f064088d49089a003" target="_blank" rel="noopener" class="view-current-stats">Click to see current stats</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </header>
         <nav>
-            <div class="nav-menu">
-                <a href="about.html">About</a>
-                <a href="projects.html">Projects & Walkthroughs</a>
-                <a href="certificates.html">Certificates</a>
+            <div class="nav-options">
+                <a href="about.html" class="nav-option">About</a>
+                <a href="projects.html" class="nav-option">Projects & Walkthroughs</a>
+                <a href="certificates.html" class="nav-option">Certificates</a>
             </div>
         </nav>
     </div>
     <script src="matrix-bg.js"></script>
+    <script>
+        // Security utility functions
+        function sanitizeHTML(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function validateJSON(str) {
+            try {
+                return JSON.parse(str);
+            } catch (e) {
+                console.error('Invalid JSON:', e);
+                return null;
+            }
+        }
+
+        // Modified LinkedIn Stats Updater with security measures
+        async function updateLinkedInStats() {
+            const linkedinInfo = document.getElementById('linkedin-info');
+            if (!linkedinInfo) return;
+            
+            linkedinInfo.classList.add('updating');
+            
+            try {
+                const response = await fetch('/api/linkedin-stats.json', {
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    credentials: 'same-origin'
+                });
+                
+                if (!response.ok) throw new Error('Failed to fetch LinkedIn stats');
+                
+                const rawData = await response.text();
+                const data = validateJSON(rawData);
+                if (!data) throw new Error('Invalid JSON response');
+                
+                const headline = linkedinInfo.querySelector('.linkedin-headline');
+                const location = linkedinInfo.querySelector('.linkedin-location');
+                const connections = linkedinInfo.querySelector('.linkedin-connections');
+                
+                if (headline && location && connections) {
+                    const currentConnections = parseInt(connections.textContent) || 0;
+                    animateValue(connections, currentConnections, parseInt(data.connections) || 0, 1000, false, ' connections');
+                    
+                    headline.style.opacity = '0';
+                    location.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        headline.textContent = sanitizeHTML(data.headline);
+                        location.textContent = sanitizeHTML(data.location);
+                        headline.style.opacity = '1';
+                        location.style.opacity = '1';
+                    }, 300);
+                }
+            } catch (error) {
+                console.error('Error updating LinkedIn stats:', error);
+            } finally {
+                setTimeout(() => {
+                    linkedinInfo.classList.remove('updating');
+                }, 1000);
+            }
+        }
+
+        // Modified email handler with security measures
+        function handleMailClick(event) {
+            event.preventDefault();
+            const email = 'siddarthad17@gmail.com';
+            const badge = event.currentTarget.querySelector('.badge');
+            if (!badge) return;
+            
+            const originalContent = badge.innerHTML;
+            
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(email)
+                    .then(() => {
+                        badge.innerHTML = sanitizeHTML(`
+                            <div class="badge-stat">
+                                <div class="badge-label">Email copied!</div>
+                                <div class="badge-value">✓</div>
+                            </div>
+                        `);
+                    })
+                    .catch(() => {
+                        badge.innerHTML = sanitizeHTML(`
+                            <div class="badge-stat">
+                                <div class="badge-label">Failed to copy</div>
+                                <div class="badge-value">✗</div>
+                            </div>
+                        `);
+                    })
+                    .finally(() => {
+                        setTimeout(() => {
+                            badge.innerHTML = originalContent;
+                        }, 2000);
+                    });
+            } else {
+                badge.innerHTML = sanitizeHTML(`
+                    <div class="badge-stat">
+                        <div class="badge-label">Clipboard not available</div>
+                        <div class="badge-value">✗</div>
+                    </div>
+                `);
+                
+                setTimeout(() => {
+                    badge.innerHTML = originalContent;
+                }, 2000);
+            }
+        }
+
+        // Event listeners with security checks
+        document.addEventListener('DOMContentLoaded', () => {
+            const linkedinBadge = document.querySelector('.social-badge[data-type="linkedin"]');
+            const linkedinIcon = document.querySelector('a[data-badge="linkedin"]');
+            const btloBadge = document.querySelector('.social-badge[data-type="btlo"]');
+            const btloIcon = document.querySelector('a[data-badge="btlo"]');
+            const letsdefendBadge = document.querySelector('.social-badge[data-type="letsdefend"]');
+            const letsdefendIcon = document.querySelector('a[data-badge="letsdefend"]');
+
+            if (linkedinIcon) {
+                linkedinIcon.addEventListener('mouseenter', updateLinkedInStats);
+            }
+
+            if (btloIcon) {
+                btloIcon.addEventListener('mouseenter', updateBTLOStats);
+            }
+
+            if (letsdefendIcon) {
+                letsdefendIcon.addEventListener('mouseenter', updateLetsDefendStats);
+            }
+
+            // Periodic updates with rate limiting
+            let updateTimeout;
+            const UPDATE_INTERVAL = 300000; // 5 minutes
+
+            function scheduleUpdates() {
+                clearTimeout(updateTimeout);
+                updateTimeout = setTimeout(() => {
+                    if (linkedinBadge && window.getComputedStyle(linkedinBadge).display === 'block') {
+                        updateLinkedInStats();
+                    }
+                    if (btloBadge && window.getComputedStyle(btloBadge).display === 'block') {
+                        updateBTLOStats();
+                    }
+                    if (letsdefendBadge && window.getComputedStyle(letsdefendBadge).display === 'block') {
+                        updateLetsDefendStats();
+                    }
+                    scheduleUpdates();
+                }, UPDATE_INTERVAL);
+            }
+
+            scheduleUpdates();
+        });
+    </script>
 </body>
 </html>
