@@ -1029,6 +1029,80 @@
                 }, 2000);
             }
         }
+
+        // Function to update BTLO stats
+        function updateBTLOStats() {
+            const btloBadge = document.querySelector('.social-badge[data-type="btlo"]');
+            if (!btloBadge) return;
+
+            // Fallback data
+            const fallbackData = {
+                rank: "Initiate",
+                points: 76,
+                challenges: 8,
+                lastUpdated: new Date().toISOString().split('T')[0]
+            };
+
+            fetch('api/btlo-stats.json')
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    btloBadge.querySelector('.btlo-rank').textContent = data.rank;
+                    btloBadge.querySelector('.btlo-points').textContent = data.points;
+                    btloBadge.querySelector('.btlo-challenges').textContent = data.challenges;
+                    btloBadge.querySelector('.btlo-last-updated').textContent = data.lastUpdated;
+                })
+                .catch(error => {
+                    console.error('Error fetching BTLO stats:', error);
+                    // Use fallback data
+                    btloBadge.querySelector('.btlo-rank').textContent = fallbackData.rank;
+                    btloBadge.querySelector('.btlo-points').textContent = fallbackData.points;
+                    btloBadge.querySelector('.btlo-challenges').textContent = fallbackData.challenges;
+                    btloBadge.querySelector('.btlo-last-updated').textContent = fallbackData.lastUpdated;
+                });
+        }
+
+        // Function to update LetsDefend stats
+        function updateLetsDefendStats() {
+            const letsdefendBadge = document.querySelector('.social-badge[data-type="letsdefend"]');
+            if (!letsdefendBadge) return;
+
+            // Fallback data
+            const fallbackData = {
+                score: 1645,
+                sla: 101,
+                successRate: 95,
+                lastUpdated: new Date().toISOString().split('T')[0]
+            };
+
+            fetch('api/letsdefend-stats.json')
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    letsdefendBadge.querySelector('.letsdefend-score').textContent = data.score;
+                    letsdefendBadge.querySelector('.letsdefend-sla').textContent = data.sla;
+                    letsdefendBadge.querySelector('.letsdefend-success').textContent = data.successRate;
+                    letsdefendBadge.querySelector('.letsdefend-last-updated').textContent = data.lastUpdated;
+                })
+                .catch(error => {
+                    console.error('Error fetching LetsDefend stats:', error);
+                    // Use fallback data
+                    letsdefendBadge.querySelector('.letsdefend-score').textContent = fallbackData.score;
+                    letsdefendBadge.querySelector('.letsdefend-sla').textContent = fallbackData.sla;
+                    letsdefendBadge.querySelector('.letsdefend-success').textContent = fallbackData.successRate;
+                    letsdefendBadge.querySelector('.letsdefend-last-updated').textContent = fallbackData.lastUpdated;
+                });
+        }
+
+        // Update stats when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            updateBTLOStats();
+            updateLetsDefendStats();
+        });
     </script>
 </body>
 </html>
