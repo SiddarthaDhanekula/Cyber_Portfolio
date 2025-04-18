@@ -811,6 +811,59 @@
             opacity: 0.5;
             pointer-events: none;
         }
+
+        .content-section {
+            padding: 2rem;
+            background: rgba(0, 20, 0, 0.2);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 255, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .section-item {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(0, 20, 0, 0.3);
+            border-left: 3px solid #00ff00;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .section-item:hover {
+            transform: translateX(5px);
+            background: rgba(0, 20, 0, 0.4);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+        }
+
+        .section-item h3 {
+            color: #00ff00;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+
+        .section-item p {
+            color: rgba(0, 255, 0, 0.9);
+            font-family: 'Source Code Pro', monospace;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            background: none;
+            border: none;
+            box-shadow: none;
+        }
+
+        #projects-content > p {
+            color: rgba(0, 255, 0, 0.9);
+            font-family: 'Source Code Pro', monospace;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(0, 20, 0, 0.2);
+            border-radius: 8px;
+            border-left: 3px solid #00ff00;
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
 </head>
@@ -857,11 +910,11 @@
                         <option value="walkthrough-7">Web Investigation —CyberDefenders</option>
                         <option value="walkthrough-8">PsExec Hunt — Cyberdefenders</option>
                         <option value="walkthrough-9">Network Analysis — Ransomeware</option>
-                        <option value="walkthrough-10">GamingServer</option>
-                        <option value="walkthrough-11">LazyAdmin</option>
-                        <option value="walkthrough-12">Brooklyn</option>
-                        <option value="walkthrough-13">Advent of Cyber 2023</option>
-                        <option value="walkthrough-14">SOC Level 1</option>
+                        <option value="walkthrough-10">Tomcat Takeover — CyberDefenders</option>
+                        <option value="walkthrough-11">PIGGY — BTLO</option>
+                        <option value="walkthrough-12">OpenWire — CyberDefenders</option>
+                        <option value="walkthrough-13">PacketMaze — CyberDefenders</option>
+                        <option value="walkthrough-14">HoneyBOT — CyberDefenders</option>
                         <option value="walkthrough-15">Blue Team Fundamentals</option>
                         <option value="walkthrough-16">SIEM Fundamentals</option>
                     </optgroup>
@@ -923,9 +976,39 @@
             <div id="content">
                 <div id="content-inner">
                     <h1>Projects & Walkthroughs</h1>
-                    <div id="projects-content">
-                        <h2>Projects</h2>
-                        <p>Select a project from the dropdown menu to view its detailed walkthrough and implementation details.</p>
+                    <div id="projects-content" class="content-section">
+                        <p>Welcome to the Projects and Walkthroughs section of my cybersecurity portfolio. This space is dedicated to showcasing practical applications of my skills, methodologies, and analytical approaches within the realm of Security Operations Center (SOC) activities. From log analysis and alert triage to threat detection, incident response, and threat intelligence correlation, each project reflects my technical proficiency, attention to detail, and commitment to proactive defense and continuous improvement in operational security.</p>
+
+                        <p>In this section, you'll find a curated collection of:</p>
+
+                        <div class="section-item">
+                            <h3>Hands-On Projects</h3>
+                            <p>Realistic scenarios and simulations that demonstrate the application of cybersecurity tools, techniques, and frameworks. These include virtual lab environments, custom scripts, security configurations, and vulnerability assessments.</p>
+                        </div>
+
+                        <div class="section-item">
+                            <h3>CTF Write-Ups</h3>
+                            <p>Detailed walkthroughs of Capture The Flag (CTF) challenges from platforms such as CyberDefenders, TryHackMe, and other cybersecurity labs. Each write-up includes reconnaissance steps, exploitation paths, privilege escalation methods, and post-exploitation insights.</p>
+                        </div>
+
+                        <div class="section-item">
+                            <h3>Incident Response & Threat Hunting Scenarios</h3>
+                            <p>Simulated cases of security breaches and threat detections that highlight investigation techniques, log analysis, and containment strategies.</p>
+                        </div>
+
+                        <div class="section-item">
+                            <h3>Security Tool Development</h3>
+                            <p>Custom scripts and tools developed for automating tasks, performing security testing, or enhancing monitoring capabilities.</p>
+                        </div>
+
+                        <div class="section-item">
+                            <h3>Defensive Strategies</h3>
+                            <p>Projects focusing on network defense, firewall configurations, SIEM implementations, and system hardening following best practices and compliance standards.</p>
+                        </div>
+
+                        <p>Each walkthrough is structured to emphasize clarity, methodology, and the rationale behind every action taken. Whether you're a fellow cybersecurity enthusiast, a recruiter, or someone simply interested in the field, this section is designed to provide a transparent and informative view into how I approach cybersecurity challenges.</p>
+
+                        <p>Feel free to explore the projects, dive into the walkthroughs, and reach out with any questions or feedback.</p>
                     </div>
                 </div>
             </div>
