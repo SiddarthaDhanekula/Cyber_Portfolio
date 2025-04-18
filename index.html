@@ -1,17 +1,8 @@
 <!DOCTYPE html>
-<!-- Updated for GitHub Pages deployment -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Security Headers -->
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="DENY">
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Permissions-Policy" content="geolocation=(), camera=(), microphone=()">
-    <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https://placehold.co; connect-src 'self' https://api.github.com; frame-src https://tryhackme.com;">
     <title>My Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -299,7 +290,7 @@
         .social-badge {
             display: none;
             position: absolute;
-            top: calc(100% + 10px);
+            top: 100%;
             left: 50%;
             transform: translateX(-50%);
             z-index: 3000;
@@ -307,6 +298,7 @@
             border-radius: 8px;
             border: 1px solid rgba(0, 255, 0, 0.3);
             box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+            margin-top: 10px;
         }
         .social-badge iframe {
             width: 100%;
@@ -322,72 +314,70 @@
             text-decoration: none;
         }
         .linkedin-card {
-            background-color: rgba(0, 20, 0, 0.95);
+            background-color: #1a1b26;
             padding: 16px;
             border-radius: 8px;
             width: 400px;
             border: 1px solid rgba(0, 255, 0, 0.3);
             box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
         }
         .linkedin-card-content {
             display: flex;
             align-items: flex-start;
-            gap: 16px;
+            gap: 12px;
         }
         .linkedin-profile-image {
-            width: 72px;
-            height: 72px;
+            width: 104px;
+            height: 104px;
             border-radius: 50%;
             object-fit: cover;
-            object-position: center 30%;
-            border: 2px solid rgba(0, 255, 0, 0.3);
+            object-position: center 30%;  /* Matching the main profile photo positioning */
         }
         .linkedin-info {
+            color: #000;
             flex: 1;
-            color: #00ff00;
         }
         .linkedin-name {
             font-size: 16px;
             font-weight: 600;
+            color: rgba(0, 0, 0, 0.9);
             margin-bottom: 4px;
-            color: #00ff00;
-            text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
         }
         .linkedin-headline {
             font-size: 14px;
-            color: rgba(0, 255, 0, 0.8);
+            color: rgba(0, 0, 0, 0.6);
             margin-bottom: 4px;
         }
         .linkedin-location {
             font-size: 14px;
-            color: rgba(0, 255, 0, 0.7);
+            color: rgba(0, 0, 0, 0.6);
             margin-bottom: 4px;
         }
         .linkedin-connections {
             font-size: 14px;
-            color: rgba(0, 255, 0, 0.7);
-            margin-bottom: 12px;
+            color: rgba(0, 0, 0, 0.6);
+            margin-bottom: 8px;
         }
         .linkedin-logo {
-            margin-top: auto;
-        }
+            height: 18px;
+            margin-top: 12px;
+            display: flex;
+                align-items: center;
+            }
         .linkedin-text {
-            color: #00ff00;
+            color: #0a66c2;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 16px;
             display: flex;
             align-items: center;
-            gap: 6px;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
-        }
-        .linkedin-text:hover {
-            opacity: 1;
+            gap: 4px;
         }
         .linkedin-text i {
-            font-size: 16px;
+            font-size: 18px;
+        }
+        .linkedin-logo svg {
+            height: 100%;
+            width: auto;
         }
         /* Show badges on hover */
         .social-icon:hover + .social-badge,
@@ -397,109 +387,83 @@
         /* LetsDefend specific styles */
         .social-badge[data-type="letsdefend"] {
             height: auto;
-            width: auto;
+            width: 300px;
         }
         .letsdefend-card {
             background-color: #1a1b26;
-            padding: 16px;
+            padding: 12px;
             border-radius: 8px;
-            width: 400px;
+            width: 300px;
             border: 1px solid rgba(0, 255, 0, 0.3);
             box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
         }
         .letsdefend-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
+            gap: 8px;
             text-align: center;
             color: #fff;
         }
         .letsdefend-stat {
-            padding: 12px;
+            padding: 8px;
             border-radius: 8px;
             background-color: rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
         }
-        .letsdefend-stat.updating {
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
         .letsdefend-stat-value {
-            font-size: 24px;
+            font-size: 18px;
             font-weight: 600;
             margin-bottom: 4px;
         }
         .letsdefend-stat-label {
-            font-size: 14px;
+            font-size: 12px;
             color: rgba(255, 255, 255, 0.7);
-        }
-        .letsdefend-stat:nth-child(1) .letsdefend-stat-value {
-            color: #4287f5;
-        }
-        .letsdefend-stat:nth-child(2) .letsdefend-stat-value {
-            color: #f54242;
-        }
-        .letsdefend-stat:nth-child(3) .letsdefend-stat-value {
-            color: #42f5ad;
         }
         .stats-last-updated {
             text-align: center;
-            font-size: 12px;
+            font-size: 10px;
             color: rgba(255, 255, 255, 0.5);
-            margin-top: 12px;
-            padding-top: 8px;
+            margin-top: 8px;
+            padding-top: 6px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         .view-current-stats {
-            display: inline-block;
-            color: #64ffda;
-            text-decoration: none;
-            margin-left: 8px;
-            font-size: 12px;
-            transition: all 0.3s ease;
-        }
-        .view-current-stats:hover {
-            color: #9effeb;
-            text-decoration: underline;
+            display: none;
         }
         /* BTLO specific styles */
         .social-badge[data-type="btlo"] {
             height: auto;
-            width: auto;
+            width: 300px;
         }
         .btlo-card {
             background-color: #1a1b26;
-            padding: 16px;
+            padding: 12px;
             border-radius: 8px;
-            width: 400px;
+            width: 300px;
             border: 1px solid rgba(0, 255, 0, 0.3);
             box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
         }
         .btlo-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-                text-align: center;
+            gap: 8px;
+            text-align: center;
             color: #fff;
         }
         .btlo-stat {
-            padding: 12px;
+            padding: 8px;
             border-radius: 8px;
             background-color: rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
         }
         .btlo-stat-value {
-            font-size: 24px;
+            font-size: 18px;
             font-weight: 600;
             margin-bottom: 4px;
             color: #64ffda;
         }
         .btlo-stat-label {
-            font-size: 14px;
+            font-size: 12px;
             color: rgba(255, 255, 255, 0.7);
         }
         /* Add pointer triangle for the badges */
@@ -560,6 +524,55 @@
             transition: opacity 0.3s ease, transform 0.3s ease;
             transform: translateX(-50%) translateY(10px);
         }
+        /* Add CyberDefenders specific styles */
+        .social-badge[data-type="cyberdefenders"] {
+            height: auto;
+            width: auto;
+            margin-top: 0;
+        }
+        .social-badge[data-type="cyberdefenders"] iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            margin: 0;
+            padding: 0;
+            background: none;
+            overflow: hidden;
+        }
+        .cyberdefenders-card {
+            background-color: #1a1b26;
+            padding: 16px;
+            border-radius: 8px;
+            width: 400px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+        }
+        .cyberdefenders-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            text-align: center;
+            color: #fff;
+        }
+        .cyberdefenders-stat {
+            padding: 12px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .cyberdefenders-stat.updating {
+            animation: pulse 1.5s infinite;
+        }
+        .cyberdefenders-stat-value {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #64ffda;
+        }
+        .cyberdefenders-stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
     </style>
 </head>
 <body>
@@ -586,28 +599,15 @@
                         </div>
                     </div>
                 </a>
-                <a href="https://www.linkedin.com/in/siddarthad" target="_blank" aria-label="LinkedIn" class="social-icon" data-badge="linkedin" rel="noopener">
+                <a href="https://www.linkedin.com/in/siddarthad" target="_blank" aria-label="LinkedIn" class="social-icon" rel="noopener">
                     <i class="fab fa-linkedin"></i>
-                </a>
-                <div class="social-badge" data-type="linkedin">
-                    <div class="linkedin-card">
-                        <div class="linkedin-card-content">
-                            <img src="./images/profile.jpg" alt="Siddartha Dhanekula" class="linkedin-profile-image">
-                            <div class="linkedin-info">
-                                <div class="linkedin-name">Siddartha Dhanekula</div>
-                                <div class="linkedin-headline">SOC Analyst | Former Analyst at Tata Consultancy Services</div>
-                                <div class="linkedin-location">Hyderabad, Telangana, India</div>
-                                <div class="linkedin-connections">126 connections</div>
-                                <div class="linkedin-logo">
-                                    <div class="linkedin-text">
-                                        <i class="fab fa-linkedin"></i>
-                                        LinkedIn
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="badge">
+                        <div class="badge-stat">
+                            <div class="badge-label">LinkedIn</div>
+                            <div class="badge-value">siddarthad</div>
                         </div>
                     </div>
-                </div>
+                </a>
                 <a href="https://tryhackme.com/p/yourusername" target="_blank" aria-label="TryHackMe" class="social-icon" data-badge="thm" rel="noopener">
                     <i class="fas fa-flag"></i>
                 </a>
@@ -664,172 +664,371 @@
                         </div>
                     </div>
                 </div>
+                <a href="https://cyberdefenders.org/p/dhanekulasiddartha25" target="_blank" aria-label="CyberDefenders" class="social-icon" data-badge="cyberdefenders" rel="noopener">
+                    <i class="fas fa-shield-alt"></i>
+                </a>
+                <div class="social-badge" data-type="cyberdefenders">
+                    <script src="https://cyberdefenders.org/p/dhanekulasiddartha25/badge"></script>
+                </div>
             </div>
         </header>
         <nav>
             <div class="nav-options">
                 <a href="about.html" class="nav-option">About</a>
                 <a href="projects.html" class="nav-option">Projects & Walkthroughs</a>
-                <a href="certificate.html" class="nav-option">Certificates</a>
+                <a href="certificates.html" class="nav-option">Certificates</a>
             </div>
         </nav>
     </div>
     <script src="matrix-bg.js"></script>
     <script>
-        // Security utility functions
-        function sanitizeHTML(str) {
-            const div = document.createElement('div');
-            div.textContent = str;
-            return div.innerHTML;
-        }
-
-        function validateJSON(str) {
-            try {
-                return JSON.parse(str);
-            } catch (e) {
-                console.error('Invalid JSON:', e);
-                return null;
-            }
-        }
-
-        // Modified LinkedIn Stats Updater with security measures
+        // LinkedIn Stats Updater
         async function updateLinkedInStats() {
             const linkedinInfo = document.getElementById('linkedin-info');
-            if (!linkedinInfo) return;
             
+            // Add updating animation
             linkedinInfo.classList.add('updating');
             
             try {
-                const response = await fetch('/api/linkedin-stats.json', {
-                    headers: {
-                        'Accept': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    credentials: 'same-origin'
-                });
-                
+                const response = await fetch('/api/linkedin-stats.json');
                 if (!response.ok) throw new Error('Failed to fetch LinkedIn stats');
                 
-                const rawData = await response.text();
-                const data = validateJSON(rawData);
-                if (!data) throw new Error('Invalid JSON response');
+                const data = await response.json();
                 
+                // Update LinkedIn info with animation
                 const headline = linkedinInfo.querySelector('.linkedin-headline');
                 const location = linkedinInfo.querySelector('.linkedin-location');
                 const connections = linkedinInfo.querySelector('.linkedin-connections');
                 
-                if (headline && location && connections) {
-                    const currentConnections = parseInt(connections.textContent) || 0;
-                    animateValue(connections, currentConnections, parseInt(data.connections) || 0, 1000, false, ' connections');
-                    
-                    headline.style.opacity = '0';
-                    location.style.opacity = '0';
-                    
-                    setTimeout(() => {
-                        headline.textContent = sanitizeHTML(data.headline);
-                        location.textContent = sanitizeHTML(data.location);
-                        headline.style.opacity = '1';
-                        location.style.opacity = '1';
-                    }, 300);
-                }
+                // Animate connections count
+                const currentConnections = parseInt(connections.textContent) || 0;
+                animateValue(connections, currentConnections, data.connections, 1000, false, ' connections');
+                
+                // Update other info with fade effect
+                headline.style.opacity = '0';
+                location.style.opacity = '0';
+                
+                setTimeout(() => {
+                    headline.textContent = data.headline;
+                    location.textContent = data.location;
+                    headline.style.opacity = '1';
+                    location.style.opacity = '1';
+                }, 300);
+                
             } catch (error) {
                 console.error('Error updating LinkedIn stats:', error);
             } finally {
+                // Remove updating animation
                 setTimeout(() => {
                     linkedinInfo.classList.remove('updating');
                 }, 1000);
             }
         }
 
-        // Modified email handler with security measures
+        // Update LinkedIn stats when the badge becomes visible
+        const linkedinBadge = document.querySelector('.social-badge[data-type="linkedin"]');
+        const linkedinIcon = document.querySelector('a[data-badge="linkedin"]');
+
+        linkedinIcon.addEventListener('mouseenter', () => {
+            updateLinkedInStats();
+        });
+
+        // Update LinkedIn stats periodically if badge is visible
+        setInterval(() => {
+            if (window.getComputedStyle(linkedinBadge).display === 'block') {
+                updateLinkedInStats();
+            }
+        }, 300000); // Update every 5 minutes if visible
+
+        // Modified animateValue function to support suffix
+        function animateValue(element, start, end, duration, isPercentage = false, suffix = '') {
+            const range = end - start;
+            const startTime = performance.now();
+            
+            function updateNumber(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Easing function for smooth animation
+                const easeOutQuad = 1 - Math.pow(1 - progress, 2);
+                const current = Math.floor(start + (range * easeOutQuad));
+                
+                element.textContent = isPercentage ? `${current}%${suffix}` : `${current}${suffix}`;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateNumber);
+                }
+            }
+            
+            requestAnimationFrame(updateNumber);
+        }
+
+        // LetsDefend Stats Updater
+        async function updateLetsDefendStats() {
+            const stats = document.getElementById('letsdefend-stats');
+            const scoreEl = document.getElementById('letsdefend-score');
+            const slaEl = document.getElementById('letsdefend-sla');
+            const successEl = document.getElementById('letsdefend-success');
+            const lastUpdatedEl = document.getElementById('letsdefend-last-updated');
+            
+            // Add updating animation
+            stats.querySelectorAll('.letsdefend-stat').forEach(stat => {
+                stat.classList.add('updating');
+            });
+            
+            try {
+                const response = await fetch('/api/letsdefend-stats.json');
+                let data;
+                
+                if (!response.ok) {
+                    // Fallback data if API fails
+                    data = {
+                        score: "850",
+                        sla: "95",
+                        successRate: "92",
+                        lastUpdated: new Date().toISOString()
+                    };
+                } else {
+                    data = await response.json();
+                }
+                
+                // Animate the stats
+                animateValue(scoreEl, parseInt(scoreEl.textContent) || 0, parseInt(data.score), 1000);
+                animateValue(slaEl, parseInt(slaEl.textContent) || 0, parseInt(data.sla), 1000);
+                animateValue(successEl, parseInt(successEl.textContent) || 0, parseInt(data.successRate), 1000, true);
+                
+                // Update last updated date
+                const lastUpdated = new Date(data.lastUpdated);
+                lastUpdatedEl.textContent = lastUpdated.toLocaleDateString();
+                
+            } catch (error) {
+                console.error('Error updating LetsDefend stats:', error);
+                // Set fallback values
+                scoreEl.textContent = "850";
+                slaEl.textContent = "95";
+                successEl.textContent = "92%";
+                lastUpdatedEl.textContent = new Date().toLocaleDateString();
+            } finally {
+                // Remove updating animation
+                setTimeout(() => {
+                    stats.querySelectorAll('.letsdefend-stat').forEach(stat => {
+                        stat.classList.remove('updating');
+                    });
+                }, 1000);
+            }
+        }
+
+        // Update LetsDefend stats when the badge becomes visible
+        const letsdefendBadge = document.querySelector('.social-badge[data-type="letsdefend"]');
+        const letsdefendIcon = document.querySelector('a[data-badge="letsdefend"]');
+
+        letsdefendIcon.addEventListener('mouseenter', () => {
+            updateLetsDefendStats();
+        });
+
+        // Update stats periodically if badge is visible
+        setInterval(() => {
+            if (window.getComputedStyle(letsdefendBadge).display === 'block') {
+                updateLetsDefendStats();
+            }
+        }, 300000); // Update every 5 minutes if visible
+
+        // BTLO Stats Updater
+        async function updateBTLOStats() {
+            const stats = document.getElementById('btlo-stats');
+            const rankEl = document.getElementById('btlo-rank');
+            const pointsEl = document.getElementById('btlo-points');
+            const challengesEl = document.getElementById('btlo-challenges');
+            const lastUpdatedEl = document.getElementById('btlo-last-updated');
+            
+            // Add updating animation
+            stats.querySelectorAll('.btlo-stat').forEach(stat => {
+                stat.classList.add('updating');
+            });
+            
+            try {
+                const response = await fetch('/api/btlo-stats.json');
+                let data;
+                
+                if (!response.ok) {
+                    // Fallback data if API fails
+                    data = {
+                        rank: "2,345",
+                        points: "1,250",
+                        challenges: "15",
+                        lastUpdated: new Date().toISOString()
+                    };
+                } else {
+                    data = await response.json();
+                }
+                
+                // Update rank with fade effect
+                rankEl.style.opacity = '0';
+                setTimeout(() => {
+                    rankEl.textContent = data.rank;
+                    rankEl.style.opacity = '1';
+                }, 300);
+                
+                // Animate number stats
+                animateValue(pointsEl, parseInt(pointsEl.textContent) || 0, parseInt(data.points), 1000);
+                animateValue(challengesEl, parseInt(challengesEl.textContent) || 0, parseInt(data.challenges), 1000);
+                
+                // Update last updated date
+                const lastUpdated = new Date(data.lastUpdated);
+                lastUpdatedEl.textContent = lastUpdated.toLocaleDateString();
+                
+            } catch (error) {
+                console.error('Error updating BTLO stats:', error);
+                // Set fallback values
+                rankEl.textContent = "2,345";
+                pointsEl.textContent = "1,250";
+                challengesEl.textContent = "15";
+                lastUpdatedEl.textContent = new Date().toLocaleDateString();
+            } finally {
+                // Remove updating animation
+                setTimeout(() => {
+                    stats.querySelectorAll('.btlo-stat').forEach(stat => {
+                        stat.classList.remove('updating');
+                    });
+                }, 1000);
+            }
+        }
+
+        // Update BTLO stats when the badge becomes visible
+        const btloBadge = document.querySelector('.social-badge[data-type="btlo"]');
+        const btloIcon = document.querySelector('a[data-badge="btlo"]');
+
+        btloIcon.addEventListener('mouseenter', () => {
+            updateBTLOStats();
+        });
+
+        // Update stats periodically if badge is visible
+        setInterval(() => {
+            if (window.getComputedStyle(btloBadge).display === 'block') {
+                updateBTLOStats();
+            }
+        }, 300000); // Update every 5 minutes if visible
+
+        // Add CyberDefenders stats updater
+        async function updateCyberDefendersStats() {
+            const stats = document.getElementById('cyberdefenders-stats');
+            const scoreEl = document.getElementById('cyberdefenders-score');
+            const challengesEl = document.getElementById('cyberdefenders-challenges');
+            const rankEl = document.getElementById('cyberdefenders-rank');
+            const lastUpdatedEl = document.getElementById('cyberdefenders-last-updated');
+            
+            // Add updating animation
+            stats.querySelectorAll('.cyberdefenders-stat').forEach(stat => {
+                stat.classList.add('updating');
+            });
+            
+            try {
+                const response = await fetch('/api/cyberdefenders-stats.json');
+                let data;
+                
+                if (!response.ok) {
+                    // Fallback data if API fails
+                    data = {
+                        score: "750",
+                        challenges: "12",
+                        rank: "1,234",
+                        lastUpdated: new Date().toISOString()
+                    };
+                } else {
+                    data = await response.json();
+                }
+                
+                // Animate the stats
+                animateValue(scoreEl, parseInt(scoreEl.textContent) || 0, parseInt(data.score), 1000);
+                animateValue(challengesEl, parseInt(challengesEl.textContent) || 0, parseInt(data.challenges), 1000);
+                animateValue(rankEl, parseInt(rankEl.textContent) || 0, parseInt(data.rank), 1000);
+                
+                // Update last updated date
+                const lastUpdated = new Date(data.lastUpdated);
+                lastUpdatedEl.textContent = lastUpdated.toLocaleDateString();
+                
+            } catch (error) {
+                console.error('Error updating CyberDefenders stats:', error);
+                // Set fallback values
+                scoreEl.textContent = "750";
+                challengesEl.textContent = "12";
+                rankEl.textContent = "1,234";
+                lastUpdatedEl.textContent = new Date().toLocaleDateString();
+            } finally {
+                // Remove updating animation
+                setTimeout(() => {
+                    stats.querySelectorAll('.cyberdefenders-stat').forEach(stat => {
+                        stat.classList.remove('updating');
+                    });
+                }, 1000);
+            }
+        }
+
+        // Update CyberDefenders stats when the badge becomes visible
+        const cyberdefendersBadge = document.querySelector('.social-badge[data-type="cyberdefenders"]');
+        const cyberdefendersIcon = document.querySelector('a[data-badge="cyberdefenders"]');
+
+        cyberdefendersIcon.addEventListener('mouseenter', () => {
+            updateCyberDefendersStats();
+        });
+
+        // Update stats periodically if badge is visible
+        setInterval(() => {
+            if (window.getComputedStyle(cyberdefendersBadge).display === 'block') {
+                updateCyberDefendersStats();
+            }
+        }, 300000); // Update every 5 minutes if visible
+
         function handleMailClick(event) {
             event.preventDefault();
             const email = 'siddarthad17@gmail.com';
             const badge = event.currentTarget.querySelector('.badge');
-            if (!badge) return;
-            
             const originalContent = badge.innerHTML;
-            
+
+            // Try to copy to clipboard
             if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(email)
-                    .then(() => {
-                        badge.innerHTML = sanitizeHTML(`
-                            <div class="badge-stat">
-                                <div class="badge-label">Email copied!</div>
-                                <div class="badge-value">✓</div>
-                            </div>
-                        `);
-                    })
-                    .catch(() => {
-                        badge.innerHTML = sanitizeHTML(`
-                            <div class="badge-stat">
-                                <div class="badge-label">Failed to copy</div>
-                                <div class="badge-value">✗</div>
-                            </div>
-                        `);
-                    })
-                    .finally(() => {
-                        setTimeout(() => {
-                            badge.innerHTML = originalContent;
-                        }, 2000);
-                    });
+                navigator.clipboard.writeText(email).then(() => {
+                    // Show success message
+                    badge.innerHTML = `
+                        <div class="badge-stat">
+                            <div class="badge-label">Email copied!</div>
+                            <div class="badge-value">✓</div>
+                        </div>
+                    `;
+                    
+                    // Restore original content after 2 seconds
+                    setTimeout(() => {
+                        badge.innerHTML = originalContent;
+                    }, 2000);
+                }).catch(() => {
+                    // If clipboard fails, show error message
+                    badge.innerHTML = `
+                        <div class="badge-stat">
+                            <div class="badge-label">Failed to copy</div>
+                            <div class="badge-value">✗</div>
+                        </div>
+                    `;
+                    
+                    // Restore original content after 2 seconds
+                    setTimeout(() => {
+                        badge.innerHTML = originalContent;
+                    }, 2000);
+                });
             } else {
-                badge.innerHTML = sanitizeHTML(`
+                // If clipboard API is not available, show error message
+                badge.innerHTML = `
                     <div class="badge-stat">
                         <div class="badge-label">Clipboard not available</div>
                         <div class="badge-value">✗</div>
                     </div>
-                `);
+                `;
                 
+                // Restore original content after 2 seconds
                 setTimeout(() => {
                     badge.innerHTML = originalContent;
                 }, 2000);
             }
         }
-
-        // Event listeners with security checks
-        document.addEventListener('DOMContentLoaded', () => {
-            const linkedinBadge = document.querySelector('.social-badge[data-type="linkedin"]');
-            const linkedinIcon = document.querySelector('a[data-badge="linkedin"]');
-            const btloBadge = document.querySelector('.social-badge[data-type="btlo"]');
-            const btloIcon = document.querySelector('a[data-badge="btlo"]');
-            const letsdefendBadge = document.querySelector('.social-badge[data-type="letsdefend"]');
-            const letsdefendIcon = document.querySelector('a[data-badge="letsdefend"]');
-
-            if (linkedinIcon) {
-                linkedinIcon.addEventListener('mouseenter', updateLinkedInStats);
-            }
-
-            if (btloIcon) {
-                btloIcon.addEventListener('mouseenter', updateBTLOStats);
-            }
-
-            if (letsdefendIcon) {
-                letsdefendIcon.addEventListener('mouseenter', updateLetsDefendStats);
-            }
-
-            // Periodic updates with rate limiting
-            let updateTimeout;
-            const UPDATE_INTERVAL = 300000; // 5 minutes
-
-            function scheduleUpdates() {
-                clearTimeout(updateTimeout);
-                updateTimeout = setTimeout(() => {
-                    if (linkedinBadge && window.getComputedStyle(linkedinBadge).display === 'block') {
-                        updateLinkedInStats();
-                    }
-                    if (btloBadge && window.getComputedStyle(btloBadge).display === 'block') {
-                        updateBTLOStats();
-                    }
-                    if (letsdefendBadge && window.getComputedStyle(letsdefendBadge).display === 'block') {
-                        updateLetsDefendStats();
-                    }
-                    scheduleUpdates();
-                }, UPDATE_INTERVAL);
-            }
-
-            scheduleUpdates();
-        });
     </script>
 </body>
 </html>
