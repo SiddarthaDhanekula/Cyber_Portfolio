@@ -427,6 +427,59 @@
             padding-top: 6px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
+        .badge-heading {
+            color: #00ff00;
+            font-size: 1.4rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-family: 'Source Code Pro', monospace;
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 0.8rem 1.5rem;
+            background: rgba(0, 20, 0, 0.4);
+            border-radius: 8px;
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            display: inline-block;
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+        .badge-heading::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.2), transparent);
+            animation: shine 4s infinite;
+        }
+        .badge-heading::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 0, 0.1), transparent);
+            border-radius: 10px;
+            z-index: -1;
+            animation: pulse 2s infinite;
+        }
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.5; }
+        }
         .view-current-stats {
             display: none;
         }
@@ -619,6 +672,7 @@
                 </a>
                 <div class="social-badge" data-type="letsdefend">
                     <div class="letsdefend-card">
+                        <h3 class="badge-heading">LetsDefend Stats</h3>
                         <div class="letsdefend-stats" id="letsdefend-stats">
                             <div class="letsdefend-stat">
                                 <div class="letsdefend-stat-value" id="letsdefend-score">1645</div>
@@ -643,6 +697,7 @@
                 </a>
                 <div class="social-badge" data-type="btlo">
                     <div class="btlo-card">
+                        <h3 class="badge-heading">Blue Team Labs Online Stats</h3>
                         <div class="btlo-stats" id="btlo-stats">
                             <div class="btlo-stat">
                                 <div class="btlo-stat-value" id="btlo-rank">Initiate</div>
