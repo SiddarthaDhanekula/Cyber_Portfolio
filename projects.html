@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="google-site-verification" content="rvVWQPI61T5vyrzo4ZaXqhXpyMbQAYXyLaY7z0F6h4Q" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects - Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,6 +22,22 @@
             background-color: #000;
             color: #fff;
             line-height: 1.6;
+        }
+
+        /* Grid Pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 0, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 0, 0.15) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 1;
+            pointer-events: none;
         }
 
         .matrix-container {
@@ -1086,6 +1103,12 @@
             20% { left: 100%; }
             100% { left: 100%; }
         }
+
+        .walkthroughs-dropdown {
+            width: 180px;
+            min-width: 120px;
+            max-width: 100%;
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
 </head>
@@ -1113,7 +1136,7 @@
             </div>
             <div class="dropdown">
                 <h2>Walkthroughs</h2>
-                <select id="walkthroughs-selector" title="Select walkthrough to view">
+                <select id="walkthroughs-selector" class="walkthroughs-dropdown" title="Select walkthrough to view">
                     <option value="" disabled selected>Select a Walkthrough</option>
                     <optgroup label="Network Traffic Analysis">
                         <option value="walkthrough-Network Traffic Analysis-1">CARNAGE — TryHackMe</option>
@@ -1143,7 +1166,7 @@
                         <option value="walkthrough-Threat Hunting-2">Investigating with Splunk — TryHackMe</option>
                         <option value="walkthrough-Threat Hunting-3">Tempest — TryHackMe(Initial Access)</option>
                         <option value="walkthrough-Threat Hunting-4">Tempest — TryHackMe(Execution)</option>
-                        <option value="walkthrough-Threat Hunting-5">Tempest - TryHackME(Privilege Escalation & Actions on Objective)</option>
+                        <option value="walkthrough-Threat Hunting-5">Tempest - TryHackME(Part-3)</option>
                         <option value="walkthrough-Threat Hunting-6">BOTSv1 — Web site defacement</option>
                         <option value="walkthrough-Threat Hunting-7">TryHackMe - Juicy Details</option>
                         <option value="walkthrough-Threat Hunting-8">Conti — TryHackMe</option>
@@ -1184,7 +1207,7 @@
             </div>
         </div>
         <div class="right-panel">
-            <div id="content">
+            <div id="content" tabindex="0">
                 <div id="content-inner">
                     <h1>Projects & Walkthroughs</h1>
                     <div id="projects-content" class="content-section">
@@ -1344,6 +1367,8 @@
                 })
                 .then(result => {
                     content.innerHTML = result.value;
+                    document.getElementById('content').scrollTop = 0; // Scroll to top
+                    document.getElementById('content').focus(); // Give focus to enable keyboard scrolling
                 })
                 .catch(error => {
                     console.error('Error loading document:', error);

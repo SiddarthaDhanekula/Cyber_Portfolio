@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="google-site-verification" content="rvVWQPI61T5vyrzo4ZaXqhXpyMbQAYXyLaY7z0F6h4Q" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certificates</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,6 +21,21 @@
             background-color: #000;
             color: #fff;
             line-height: 1.6;
+        }
+        /* Subtle Grid Pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 0, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 0, 0.15) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 1;
+            pointer-events: none;
         }
         .matrix-container {
             position: fixed;
