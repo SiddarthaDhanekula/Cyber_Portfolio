@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="matrix-bg.css">
     <style>
         * {
             box-sizing: border-box;
@@ -17,7 +16,7 @@
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
-            overflow: auto;
+            overflow: hidden;
             background-color: #000;
             color: #fff;
             line-height: 1.6;
@@ -26,9 +25,46 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .domain-text {
+            position: absolute;
+            font-family: 'Source Code Pro', monospace;
+            color: #00ff00;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+            white-space: nowrap;
+            user-select: none;
+            -webkit-user-select: none;
+            /* animation properties will be set inline */
+        }
+        @keyframes float-up {
+            0%, 100% { transform: translateY(0) scale(1) rotate(var(--rotation, 0deg)); }
+            50% { transform: translateY(-30px) scale(1.08) rotate(var(--rotation, 0deg)); }
+        }
+        @keyframes float-down {
+            0%, 100% { transform: translateY(0) scale(1) rotate(var(--rotation, 0deg)); }
+            50% { transform: translateY(30px) scale(0.95) rotate(var(--rotation, 0deg)); }
+        }
+        @keyframes float-left {
+            0%, 100% { transform: translateX(0) scale(1) rotate(var(--rotation, 0deg)); }
+            50% { transform: translateX(-30px) scale(1.05) rotate(var(--rotation, 0deg)); }
+        }
+        @keyframes float-right {
+            0%, 100% { transform: translateX(0) scale(1) rotate(var(--rotation, 0deg)); }
+            50% { transform: translateX(30px) scale(0.97) rotate(var(--rotation, 0deg)); }
+        }
+        @keyframes float-diag1 {
+            0%, 100% { transform: translate(0,0) scale(1) rotate(var(--rotation, 0deg)); }
+            50% { transform: translate(20px, -20px) scale(1.1) rotate(var(--rotation, 0deg)); }
+        }
+        @keyframes float-diag2 {
+            0%, 100% { transform: translate(0,0) scale(1) rotate(var(--rotation, 0deg)); }
+            50% { transform: translate(-20px, 20px) scale(0.93) rotate(var(--rotation, 0deg)); }
         }
         .container {
             width: 100%;
@@ -308,13 +344,21 @@
     </style>
 </head>
 <body>
-    <div class="matrix-container" data-opacity="low">
-        <canvas id="matrix"></canvas>
-    </div>
+    <div class="matrix-container"></div>
+    <div class="particles-container"></div>
     <div class="container">
         <div class="content-container">
             <h1>Certificates</h1>
             <div class="certificates-grid">
+                <!-- Google Cybersecurity Certificate -->
+                <div class="certificate-card" onclick="openModal(this)">
+                    <div class="certificate-image">
+                        <img src="images/certificates/google-cert.png" alt="Google Cybersecurity Certificate" oncontextmenu="return false;">
+                    </div>
+                    <div class="certificate-name">Google Cybersecurity Professional Certificate</div>
+                    <div class="certificate-details">Completed 8 courses including Python, Linux, SQL, and Security Information and Event Management (SIEM)</div>
+                </div>
+
                 <!-- ISC2 Certified in Cybersecurity -->
                 <div class="certificate-card" onclick="openModal(this)">
                     <div class="certificate-image">
@@ -350,22 +394,7 @@
                     <div class="certificate-name">Mastercard & NYJCC Cybersecurity Virtual Experience</div>
                     <div class="certificate-details">June 2023 - March 2024: Phishing simulation design and analysis</div>
                 </div>
-
-                <!-- Google Cybersecurity Certificate -->
-                <div class="certificate-card" onclick="openModal(this)">
-                    <div class="certificate-image">
-                        <img src="images/certificates/google-cert.png" alt="Google Cybersecurity Certificate" oncontextmenu="return false;">
-                    </div>
-                    <div class="certificate-name">Google Cybersecurity Professional Certificate</div>
-                    <div class="certificate-details">Completed 8 courses including Python, Linux, SQL, and Security Information and Event Management (SIEM)</div>
-                </div>
             </div>
-        </div>
-
-        <div class="nav-options">
-            <a href="index.html" class="nav-option">Home</a>
-            <a href="about.html" class="nav-option">About</a>
-            <a href="projects.html" class="nav-option">Projects & Walkthroughs</a>
         </div>
 
         <a href="index.html" class="back-home">Back to Home</a>
@@ -379,7 +408,6 @@
         </div>
     </div>
 
-    <script src="matrix-bg.js"></script>
     <script>
         // Prevent right-click on images
         document.addEventListener('contextmenu', function(e) {
@@ -421,6 +449,78 @@
             if (event.key === "Escape") {
                 closeModal();
             }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Background Effects ---
+            // Matrix Rain
+            const matrixContainer = document.querySelector('.matrix-container');
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()_+-=[]{}|;:,.<>?';
+            function createMatrixRain() {
+                const columns = Math.floor(window.innerWidth / 20);
+                for (let i = 0; i < columns; i++) {
+                    const column = document.createElement('div');
+                    column.style.position = 'absolute';
+                    column.style.left = `${i * 20}px`;
+                    column.style.top = '-100px';
+                    column.style.color = '#00ff00';
+                    column.style.fontFamily = 'Source Code Pro, monospace';
+                    column.style.fontSize = '16px';
+                    column.style.opacity = Math.random() * 0.5 + 0.3;
+                    column.style.animation = `matrix-rain ${Math.random() * 2 + 1}s linear infinite`;
+                    column.style.animationDelay = `${Math.random() * 2}s`;
+                    matrixContainer.appendChild(column);
+                    let text = '';
+                    const length = Math.floor(Math.random() * 20) + 10;
+                    setInterval(() => {
+                        text = '';
+                        for (let i = 0; i < length; i++) {
+                            text += characters[Math.floor(Math.random() * characters.length)] + '<br>';
+                        }
+                        column.innerHTML = text;
+                    }, 100);
+                }
+            }
+            // Remove floating domains
+            // Particles
+            const particlesContainer = document.querySelector('.particles-container');
+            let particles = [];
+            const particleCount = 50;
+            function createParticle(x, y) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                particlesContainer.appendChild(particle);
+                setTimeout(() => {
+                    particle.style.opacity = '0.5';
+                    setTimeout(() => {
+                        particle.style.opacity = '0';
+                        setTimeout(() => {
+                            particle.remove();
+                        }, 300);
+                    }, 1000);
+                }, 0);
+            }
+            document.addEventListener('mousemove', (e) => {
+                if (particles.length < particleCount) {
+                    createParticle(e.clientX, e.clientY);
+                    particles.push(true);
+                    setTimeout(() => {
+                        particles.shift();
+                    }, 1500);
+                }
+            });
+            // Initialize background
+            createMatrixRain();
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    matrixContainer.innerHTML = '';
+                    createMatrixRain();
+                }, 250);
+            });
         });
     </script>
 </body>
